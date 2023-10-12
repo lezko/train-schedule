@@ -14,6 +14,11 @@ public class Station {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     public String getName() {
         return name;
     }

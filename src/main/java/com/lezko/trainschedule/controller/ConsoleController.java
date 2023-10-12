@@ -40,11 +40,11 @@ public class ConsoleController {
     }
 
     private static void printAllTrains() {
-        System.out.println(repository.findAll().stream().map(Train::toString).collect(Collectors.joining(", ", "[", "]")));
+        System.out.println(repository.findAll().stream().map(Train::toString).collect(Collectors.joining("\n")));
     }
 
     private static void printTrainsByIds(Collection<UUID> ids) {
         List<Train> toPrint = repository.findAll().stream().filter(t -> ids.contains(t.getId())).toList();
-        System.out.println(toPrint.stream().map(Train::toString).collect(Collectors.joining(", ", "[", "]")));
+        System.out.println(toPrint.stream().map(Train::toString).collect(Collectors.joining("\n")));
     }
 }

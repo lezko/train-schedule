@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-public class Train implements Serializable {
+public class Train {
     private final UUID id = UUID.randomUUID();
     private String name;
     private long number;
-    private List<TimeTableEntry> schedule = new LinkedList<>();
+    private List<Schedule> schedules = new LinkedList<>();
 
     public Train(String name, long number) {
         this.name = name;
@@ -18,7 +19,7 @@ public class Train implements Serializable {
 
     @Override
     public String toString() {
-        return "{ " + this.id + ", " + this.name + ", " + this.number + ", " + this.schedule.size() + " stations }";
+        return this.id + ", " + this.name + ", " + this.number + "\n" + schedules.stream().map(Schedule::toString).collect(Collectors.joining("\n")) + "\n";
     }
 
     public UUID getId() {
@@ -41,11 +42,11 @@ public class Train implements Serializable {
         this.number = number;
     }
 
-    public List<TimeTableEntry> getSchedule() {
-        return schedule;
+    public List<Schedule> getSchedules() {
+        return schedules;
     }
 
-    public void setSchedule(List<TimeTableEntry> schedule) {
-        this.schedule = schedule;
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }

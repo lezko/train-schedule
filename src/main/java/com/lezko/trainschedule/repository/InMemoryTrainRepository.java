@@ -1,21 +1,36 @@
 package com.lezko.trainschedule.repository;
 
-import com.lezko.trainschedule.model.Train;
+import com.lezko.trainschedule.model.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class InMemoryTrainRepository implements TrainRepository {
 
-    private List<Train> trains = List.of(
-            new Train("Pivozavr", 55),
-            new Train("Chipsoed", 309),
-            new Train("Mutant", 333)
-    );
+    private List<Train> trains;
 
     private static InMemoryTrainRepository INSTANCE;
-    private InMemoryTrainRepository() {};
+    private InMemoryTrainRepository() {
+        trains = List.of(
+                new Train("Pivozavr", 55),
+                new Train("Chipsoed", 309),
+                new Train("Mutant", 333)
+        );
+        Schedule s = new Schedule(List.of(
+                new TimeTableEntry(new Station("Osinavaya"), 0, 0),
+                new TimeTableEntry(new Station("Kosmonavtov"), 60, 65),
+                new TimeTableEntry(new Station("Berezovaya"), 100, 120),
+                new TimeTableEntry(new Station("Slivovaya"), 180, 180)
+        ), List.of(
+                new Schedule.WeekdayTimePair(Weekday.MONDAY, 20),
+                new Schedule.WeekdayTimePair(Weekday.MONDAY, 180),
+                new Schedule.WeekdayTimePair(Weekday.FRIDAY, 333)
+        ));
+        trains.get(0).getSchedules().add(s);
+    };
 
     public static InMemoryTrainRepository getInstance() {
         if (INSTANCE == null) {

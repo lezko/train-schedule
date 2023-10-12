@@ -1,5 +1,7 @@
 package com.lezko.trainschedule.model;
 
+import com.lezko.trainschedule.utils.Time;
+
 import java.util.UUID;
 
 public class TimeTableEntry {
@@ -12,6 +14,11 @@ public class TimeTableEntry {
         this.station = station;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{ %s, arrival: %s, departure: %s }", station, Time.fromInt(arrivalTime), Time.fromInt(departureTime));
     }
 
     public UUID getId() {
